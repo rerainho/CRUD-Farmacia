@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.generation.crudfarmacia.model.CategoriaModel;
 import com.generation.crudfarmacia.repository.CategoriaRepository;
+import com.generation.crudfarmacia.repository.ProdutoRepository;
 
 @RestController
 @RequestMapping("/categorias")
@@ -20,6 +21,9 @@ public class CategoriaController {
 
 @Autowired
 private CategoriaRepository categoriaRepository;
+
+@Autowired
+private ProdutoRepository produtoRepository;
 
 @GetMapping
 public ResponseEntity<List<CategoriaModel>> getAll(){
