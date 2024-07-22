@@ -1,11 +1,17 @@
 package com.generation.crudfarmacia.model;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -26,8 +32,11 @@ public class CategoriaModel {
 	@Size(min = 5, max = 100, message = "atributo mínimo 5 e máximo 100 caracteres")
 	private String marca;
 
-	@NotNull(message = "O atributo data da validade do cadastro é obrigatório")
 	private LocalDateTime dataValidade;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "categoriamodel", cascade = CascadeType.REMOVE)
+	@JsonIgnoreProperties("categoriamodel")
+	private List<Produto> produto;
 
 
 	public void setId(Long id) {
@@ -61,5 +70,14 @@ public class CategoriaModel {
 	public void setDataValidade(LocalDateTime dataValidade) {
 		this.dataValidade = dataValidade;
 	}
+
+	public List<Produto> getProduto() {
+		return produto;
+	}
+
+	public void setProduto(List<Produto> produto) {
+		this.produto = produto;
+	}
+	
 
 }
